@@ -1,6 +1,7 @@
 require './lib/item'
 require './lib/auction'
 require './lib/attendee'
+require 'date'
 
 RSpec.describe Auction do
   context "#initialize" do
@@ -88,4 +89,58 @@ RSpec.describe Auction do
       expect(auction.bidder_info).to eq(result)
     end
   end
+
+  context "iteration 4" do
+    item1 = Item.new('Chalkware Piggy Bank')
+    item2 = Item.new('Bamboo Picture Frame')
+    item3 = Item.new('Homemade Chocolate Chip Cookies')
+    item4 = Item.new('2 Days Dogsitting')
+    item5 = Item.new('Forever Stamps')
+    attendee1 = Attendee.new(name: 'Megan', budget: '$50')
+    attendee2 = Attendee.new(name: 'Bob', budget: '$75')
+    attendee3 = Attendee.new(name: 'Mike', budget: '$100')
+    auction = Auction.new
+    auction.add_item(item1)
+    auction.add_item(item2)
+    auction.add_item(item3)
+    auction.add_item(item4)
+    auction.add_item(item5)
+    item1.add_bid(attendee1, 22)
+    item1.add_bid(attendee2, 20)
+    item4.add_bid(attendee2, 30)
+    item4.add_bid(attendee3, 50)
+    item3.add_bid(attendee2, 15)
+    item5.add_bid(attendee1, 35)
+
+    # it "has a date" do
+    #
+    #   auction.date
+    #   #=> "24/02/2020"
+    #   expect().to eq()
+    #
+    # end
+
+    it "closes the auction" do
+      result = {
+        item1 => attendee1,
+        item2 => 'Not Sold',
+        item3 => attendee2,
+        item4 => attendee3,
+        item5 => attendee1
+      }
+      expect(auction.close_auction).to eq(result)
+    end
+  end
 end
+
+# An Auction will now be created with a date - whatever date the event is created on through the use of `Date.today`. The addition of a date to the event should NOT break any previous tests.  The `date` method will return a string representation of the date - 'dd/mm/yyyy'. We want you to test this in with a date that is IN THE PAST. In order to test the date method in a way that will work today, tomorrow and on any date in the future, you will need to use a stub :)
+# - `close_auction` should close bidding and 'sell' items to attendees.
+# The method will return a hash with items as the keys,
+# and the purchaser of that item as the values. Attendees
+# will only purchase items that they can afford
+# (their bid is less than their current budget).  If an attendee has bid on multiple items,
+# they will purchase the items starting with the most expensive first,
+# followed by the next most expensive, etc... while they still have enough money
+# in their budget to pay for the item.  If the highest bidder for an item does not
+# have enough budget to pay for the item, the next highest bidder will purchase
+# the item.
