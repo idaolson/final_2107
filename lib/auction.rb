@@ -51,17 +51,17 @@ class Auction
     bidder_info
   end
 
-  def close_auction
-    closed = {}
-
-    @items.each do |item|
-      require "pry"; binding.pry
-      if item.bids == nil
-        closed[item] = 'Not Sold'
-      elsif item.current_high_bid
-
-
-      end
-    end
-  end
+  # def close_auction
+  #   closed = {}
+  #
+  #   @items.each do |item|
+  #     require "pry"; binding.pry
+  #     if item.bids == nil
+  #       closed[item] = 'Not Sold'
+  #     elsif item.current_high_bid
+  #
+  #
+  #     end
+  #   end
+  # end
 end

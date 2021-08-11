@@ -120,16 +120,16 @@ RSpec.describe Auction do
     #
     # end
 
-    it "closes the auction" do
-      result = {
-        item1 => attendee1,
-        item2 => 'Not Sold',
-        item3 => attendee2,
-        item4 => attendee3,
-        item5 => attendee1
-      }
-      expect(auction.close_auction).to eq(result)
-    end
+#     it "closes the auction" do
+#       result = {
+#         item1 => attendee1,
+#         item2 => 'Not Sold',
+#         item3 => attendee2,
+#         item4 => attendee3,
+#         item5 => attendee1
+#       }
+#       expect(auction.close_auction).to eq(result)
+#     end
   end
 end
 
