@@ -28,4 +28,26 @@ class Auction
       end
     end
   end
+
+  def bidders
+    @items.flat_map do |item|
+      item.bids.keys.map do |key|
+       key.name
+      end
+    end.uniq
+  end
+
+  def bidder_info
+    bidder_info = {}
+    @items.each do |item|
+      item.bids.each do |attendee, bid|
+        bidder_info[attendee] ||= {
+          :budget => attendee.budget,
+          :items => []
+        }
+        bidder_info[attendee][:items] << item
+      end
+    end
+    bidder_info
+  end
 end
